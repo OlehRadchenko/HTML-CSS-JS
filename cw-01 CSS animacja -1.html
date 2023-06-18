@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>CSS-animacja_przycisku-1</title>
+	<style>
+        fieldset{
+            text-align:  center;
+            width: 500px; 
+            margin-left: auto; 
+            margin-right: auto; 
+            margin-top: 100px;
+            background-color: gray;
+            border: gray;
+        }
+        ul{
+            list-style: none;
+        }
+        a.move{
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+            line-height: 60px;
+            padding: 0px 3.75%;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 18px;
+            border-radius: 35px;
+            top: 0;
+            position:relative;
+            margin-right: 45px;
+            margin-left: auto;
+            margin-bottom: 10px;
+            background-color: blue;
+            box-shadow: 0 5px 0px #8b3838;
+            transition-duration: 2s,0.5s,0.25s;
+            transition-property: background-color,box-shadow,top;
+            transition-delay: 0,0.5s,0.5s;
+            transition-timing-function: linear;
+        }
+        a.move:hover{
+            top: 2px;
+            box-shadow: 0 3px 0px #3c354a;
+            background-color: red;
+        }
+        .footer{
+            width: 98.4%;
+            height: 50px; 
+            background: rgb(179, 175, 177); 
+            padding: 5px; 
+            border: solid 1px black; 
+            float: left; 
+            position: static;  
+            margin-top: 30px;
+        }
+	</style>
+</head>
+<body>
+    <fieldset>
+        <nav>
+            <ul>
+                <li>
+                    <a href="" class="move"><b>przejście 1</b></a><br>
+                </li>
+                <li>
+                    <a href="" class="move"><b>przejście 2</b></a><br>
+                </li>
+                <li>
+                    <a href="" class="move"><b>przejście 3</b></a><br>
+                </li>
+                <li>
+                    <a href="" class="move"><b>przejście 4</b></a><br>
+                </li>
+                <li>
+                    <a href="" class="move"><b>przejście 5</b></a><br>
+                </li>
+            </ul>
+                
+        </nav>
+        <div class="footer">
+            <p style="text-align: center;">&copy; Oleh Radchenko 2P & Patryk Jajdyk 2P  Zespół Szkół Energetycznych(Technikum nr 13) &copy;</p>
+        </div>
+    </fieldset>
+</body>
+</html>
