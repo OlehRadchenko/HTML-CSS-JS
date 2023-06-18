@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zadanie 22_2</title>
+</head>
+<body onload="odliczanie()">
+    <fieldset style="text-align:center; width:500px;  margin-left: auto; margin-right: auto; margin-top: 40px;">
+        <legend>Ile do końca roku szkolnego</legend>
+        <p id="wynik"></p>
+    </fieldset>
+    <script>
+        const odliczanie=()=>{
+            let data = new Date();
+            let koniec_roku_szkolnego = new Date(data.getFullYear(), 5, 24, 9);
+            
+            let dni = Math.floor(Math.abs(koniec_roku_szkolnego.getTime() - data.getTime())/(1000*60*60*24));
+            let godz = Math.floor(Math.abs(koniec_roku_szkolnego.getTime() - data.getTime())/(1000*60*60))%24;
+            let min = Math.floor(Math.abs(koniec_roku_szkolnego.getTime() - data.getTime())/(1000*60))%60;
+            let sec = Math.floor(Math.abs(koniec_roku_szkolnego.getTime() - data.getTime())/(1000))%60;
+
+            wynik.innerHTML=`Do końca roku szkolnego ${data.getFullYear()-1}-${data.getFullYear()} zostało: ${dni} dni<br>${godz+1} godzin, ${min} minut i ${sec} sekund`;
+            setTimeout("odliczanie();", 1000);
+        }
+    </script>
+</body>
+</html>

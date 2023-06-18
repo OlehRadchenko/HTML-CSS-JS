@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zadanie 25</title>
+</head>
+<body>
+    Proszę podać swoje hasło, a ja sprawdzę jaką ma jakość:<br><br>
+    <form>
+        Hasło: <input type="text" id="password" onkeyup="sprawdz()"><br><br>
+        <!--<input type="button" value="Sprawdź!" onclick="sprawdz()">-->
+    </form>
+    Siła: <p style="color:black" id="wynik"></p>
+    <script>
+       const sprawdz=()=>{
+        const pass = password.value;
+        const Re = /[0-9]+/;
+        if(pass.length>=7 && Re.test(pass)){
+            wynik.innerHTML = "DOBRE!";
+            wynik.style.color = "green";
+        }else if(pass.length>=4 && pass.length<=6 && Re.test(pass)){
+            wynik.innerHTML = "ŚREDNIE!";
+            wynik.style.color = "blue";
+        }else if(pass == ""|| pass == " "){
+            wynik.innerHTML = "WPISZ HASŁO!";
+            wynik.style.color = "red";
+        }else{
+            wynik.innerHTML = "SŁABE!";
+            wynik.style.color = "yellow";
+        }
+       }
+    </script>
+</body>
+</html>

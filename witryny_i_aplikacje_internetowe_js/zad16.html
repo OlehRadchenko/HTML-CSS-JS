@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        th{
+            background-color: #000;
+            color:#fff;
+        }
+        .czarna{
+            background-color: #000;
+        }
+    </style>
+    <script>
+        const narysuj=()=>{
+            const wys = parseInt(liczba.value);
+            let piramida ="";
+            for(let i=1; i<=wys; i++){
+                for(let j=0; j<i; j++){
+                    piramida+="*";
+                }
+                piramida+=" <br>";
+            }
+            wynik.innerHTML=piramida;
+
+        }
+
+        const narysuj2=()=>{
+            const szer = parseInt(liczba2.value);
+            let tabliczka = "";
+            for(let i=1; i<=szer; i++){
+                for(let j=1; j<=szer; j++){
+                    if(i*j<10){
+                        tabliczka += "&#8194;"+i*j+"&#8195;";
+                    }else{
+                    tabliczka += i*j+"&#8195;";
+                    }
+                }
+                tabliczka += " <br>";
+            }
+            wynik.innerHTML=tabliczka;
+        }
+        const narysuj2_2=()=>{
+            const szer = parseInt(liczba2_2.value);
+            let tabliczka = "<table>";
+            tabliczka+="<tr>";
+            tabliczka+="<th> </th>";
+            for(let x=1; x<=szer; x++){
+                tabliczka+="<th>"+x+"</th>";
+            }
+            tabliczka+="</tr>";
+
+            for(let i=1; i<=szer; i++){
+                tabliczka+="<tr>";
+                tabliczka+="<th>"+i+"</th>";
+                for(let j=1; j<=szer; j++){
+                    tabliczka += "<td>"+i*j+"</td>";
+                }
+                tabliczka += "</tr>";
+            }
+            wynik.innerHTML=tabliczka;
+        }
+
+        const narysuj3=()=>{
+            const wyso = parseInt(liczba3_1.value);
+            const szer = parseInt(liczba3_2.value);
+            let obraz = "<table>";
+            if(wyso%2==0 || szer%2==0){
+                obraz="Źle wprowadziłes liczby ;c"
+            }else{
+            for(let i=1; i<=wyso; i++){
+                /*obraz+="<tr ";*/
+                if(i == parseInt((wyso/2)+1)){
+                    for(let x=1; x<=szer; x++){
+                    obraz+="<td class=czarna>a</td>";
+                    }
+                }else{
+                for(let j=1; j<=szer; j++){
+                    
+                    if(j == parseInt((szer/2)+1)){
+                    for(let y=1; y<=parseInt(szer/2); y++){
+                        obraz+="<td></td>";
+                    }
+                    obraz+="<td class=czarna>a</td>";
+                }
+                }
+                }
+                obraz+="</tr>"
+            }
+            }
+            obraz+="</table>"
+            wynik.innerHTML=obraz;
+        }
+    </script>
+    <title>Trójkąt, tabliczka mnożenia i krzyż ;3</title>
+</head>
+<body>
+    Podaj ilość gwiazdek wysokości&nbsp;<input type="number" id="liczba">
+    <input type="button" value="Narysuj ;3" onclick="narysuj()">
+    <br>
+    <br>
+    <br>
+    Podaj ile na ile ma być tabliczka mnożenia(tylko jedna liczba)(wersja 1)&nbsp;<input type="number" id="liczba2">
+    <input type="button" value="Narysuj tabliczke mnozenia ;3" onclick="narysuj2()">
+    <br>
+    <br>
+    <br>
+    Podaj ile na ile ma być tabliczka mnożenia(tylko jedna liczba)(wersja 2 z tablicą)&nbsp;<input type="number" id="liczba2_2">
+    <input type="button" value="Narysuj tabliczke mnozenia ;3" onclick="narysuj2_2()">
+    <br>
+    <br>
+    <br>
+    Podaj wysokość(liczbę nie parzystą)&nbsp;<input type="number" id="liczba3_1"><br>
+    Podaj szerokość(liczbę nie parzystą)&nbsp;<input type="number" id="liczba3_2">
+    <input type="button" value="Narysuj krzyż ;3" onclick="narysuj3()"> <!--■-->
+    <br>
+    <br>
+    <br>
+    <p id="wynik"></p>
+</body>
+</html>

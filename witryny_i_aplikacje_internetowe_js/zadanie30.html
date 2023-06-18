@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator ułamkowy</title>
+    <style>
+        input{
+            width: 50px;
+            height: 50px;
+        }
+        span{
+            font-size: xx-large;
+        }
+    </style>
+</head>
+<body>
+    <h1>Kalkulator ułamkowy</h1>
+    <table>
+        <tr>
+            <th><input type="number" id="ulamek1_1"></th><th> </th><th><input type="number" id="ulamek2_1"></th><th> </th><th><input type="number" id="ulamek3_1" disabled="disabled"></th>
+        </tr>
+        <tr>
+            <th><hr></hr></th><th><span id="znak"></span></th><th><hr></hr></th><th> = </th><th><hr></hr></th>
+        </tr>
+        <tr>
+            <th><input type="number" id="ulamek1_2"></th><th> </th><th><input type="number" id="ulamek2_2"></th><th> </th><th><input type="number" id="ulamek3_2" disabled="disabled"></th>
+        </tr>
+    </table>
+<br>
+    <table>
+        <tr>
+            <th><input type="button" value="+" id="plus"></th><th><input type="button" value="-" id="minus"></th><th><input type="button" value="AC" id="ac"></th>
+        </tr>
+        <tr>
+            <th><input type="button" value="*" id="razy"></th><th><input type="button" value="/" id="dziel"></th><th><input type="button" onclick="oblicz()" value="="></th>
+        </tr>
+    </table>
+    <script>
+        class Ulamek{
+            #L; //licznik
+            #M; //mianownik
+
+            get mianownik (){
+                return this.#M;
+            }
+            set mianownik (value){
+                if(value == 0){
+                    alert("Nie można dzielić przez 0   ;0");
+                }else{
+                    this.#M = value;
+                }
+            }
+
+            get licznik (){
+                return this.#L
+            }
+            set licznik (value){
+                this.#L = value;
+            }
+
+            NWD(x,y){
+                    if(y==0){
+                        return x;
+                    }else{
+                        return this.NWD(y,x%y);
+                    }
+                return x;
+            }
+            skroc(){
+                let skracacz = this.NWD(this.licznik,this.mianownik);
+                this.licznik /= skracacz;
+                this.mianownik /= skracacz;
+            }
+            NWW(x,y){
+                return x/this.NWD(x,y)*y;
+            }
+
+            dod(ulamek1, ulamek2){
+                this.mianownik = this.NWW(ulamek1.mianownik, ulamek2.mianownik);
+                this.licznik = (this.mianownik/ulamek1.mianownik*ulamek1.licznik) + (this.mianownik/ulamek2.mianownik*ulamek2.licznik);
+                this.skroc();
+            }
+            odejm(ulamek1, ulamek2){
+                this.mianownik = this.NWW(ulamek1.mianownik, ulamek2.mianownik);
+                this.licznik = (this.mianownik/ulamek1.mianownik*ulamek1.licznik) - (this.mianownik/ulamek2.mianownik*ulamek2.licznik);
+                this.skroc();
+            }
+            dziel(ulamek1, ulamek2){
+                this.mianownik = ulamek1.mianownik * ulamek2.licznik;
+                this.licznik = ulamek1.licznik * ulamek2.mianownik;
+                this.skroc();
+            }
+            mnoz(ulamek1, ulamek2){
+                this.mianownik = ulamek1.mianownik * ulamek2.mianownik;
+                this.licznik = ulamek1.licznik * ulamek2.licznik;
+                this.skroc();
+            }
+        }
+
+        
+        let wybor = 0;
+            plus.addEventListener("click", function(){
+                znak.innerHTML = "+";
+                wybor = 1;
+            })
+            minus.addEventListener("click", function(){
+                znak.innerHTML = "-";
+                wybor = 2;
+            })
+            razy.addEventListener("click", function(){
+                znak.innerHTML = "*";
+                wybor = 3;
+            })
+            dziel.addEventListener("click", function(){
+                znak.innerHTML = "/";
+                wybor = 4;
+            })
+            ac.addEventListener("click", function(){
+                znak.innerHTML = "";
+                ulamek1_1.value = "";
+                ulamek1_2.value = "";
+                ulamek2_1.value = "";
+                ulamek2_2.value = "";
+                ulamek3_1.value = "";
+                ulamek3_2.value = "";
+                wybor = 0;
+            })
+        const oblicz=()=>{
+            ulamek1 = new Ulamek();
+            ulamek2 = new Ulamek();
+            ulamek3 = new Ulamek();
+
+            ulamek1.licznik = parseFloat(ulamek1_1.value);
+            ulamek1.mianownik = parseFloat(ulamek1_2.value);
+            ulamek2.licznik = parseFloat(ulamek2_1.value);
+            ulamek2.mianownik = parseFloat(ulamek2_2.value);
+
+            switch(wybor){
+                case 1:
+                    ulamek3.dod(ulamek1, ulamek2);
+                    break;
+                case 2:
+                    ulamek3.odejm(ulamek1, ulamek2);
+                    break;
+                case 3:
+                    ulamek3.mnoz(ulamek1, ulamek2);
+                    break;
+                case 4:
+                    ulamek3.dziel(ulamek1, ulamek2);
+                    break;
+                default:
+                    alert("Nie podałeś znaku i nie wiem co mam zrobić z tymi ułamkami ;c");
+            }
+            ulamek3_1.value = ulamek3.licznik;
+            ulamek3_2.value = ulamek3.mianownik;
+            console.log(ulamek1.licznik+","+ulamek1.mianownik+","+ulamek2.licznik+","+ulamek2.mianownik+","+ulamek3.licznik+","+ulamek3.mianownik+","+wybor); // dla testów!!
+        }
+    </script>
+</body>
+</html>

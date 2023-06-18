@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+    const losuj=()=>{
+        wynik.innerHTML="";
+        let Lotto = [];
+        for(let i=1; i<=6; i++){
+            const los = Math.floor(Math.random()*49)+1;
+            if(Lotto.indexOf(los) == -1){
+                Lotto.push(los);
+            }else{
+                i--;
+            }
+        }
+        Lotto.sort((a,b) => a-b);
+        for(let x of Lotto){
+            wynik.innerHTML += `<img src="lotto/p${x}.png" width="100" height="100">`;
+        }
+    }
+    </script>
+    <title>Zadanie 20</title>
+</head>
+<body>
+    <input type="button" value="Wylosuj" onclick="losuj()"><br>
+    <p id="wynik"></p>
+</body>
+</html>

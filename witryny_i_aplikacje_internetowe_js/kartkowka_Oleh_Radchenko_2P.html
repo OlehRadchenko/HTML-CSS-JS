@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kartkówka Oleh Radchenko 2-P</title>
+</head>
+<body>
+    <fieldset style="text-align:center; width:500px;  margin-left: auto; margin-right: auto; margin-top: 40px;"> <!--Blok z wybieraniem opcji-->
+        <legend>Wybierz</legend>
+        <table style="width: 500px; height: 50px;">
+            <tr>
+            <td><input type="radio" name="wyb" id="kolo"></td><td><input type="radio" name="wyb" id="walec"></td><td><input type="radio" name="wyb" id="stozek"></td>
+            </tr>
+            <tr>
+            <td>Koło</td><td>Walec</td><td>Stożek</td>
+            </tr>
+        </table>
+    </fieldset>
+    <br>
+    <div style="text-align:center; width:500px;  margin-left: auto; margin-right: auto;"> <!--Blok z wprowadzeniem i wyprowadzeniem danych-->
+    <table>
+        <tr>
+            <td>Promień: </td>
+            <td><input type="number" id="promien" value="0"></td>
+            <td>Pole: </td>
+            <td><input type="number" id="pole" disabled="true"></td>
+        </tr>
+        <tr>
+            <td>Wysokość: </td>
+            <td><input type="number" id="wysokosc" value="0"></td>
+            <td>Objętość: </td>
+            <td><input type="number" id="objetosc" disabled="true"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="button" value="Oblicz" onclick="oblicz();"></td> <!--Przycisk oblicz, który odpala metodę oblicz();-->
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+    </div>
+    <script>                  //Początek skryptu           ||Przepraszam że po terminie, ale byłem chory i tylko teraz wróciłem do normy ;3||
+        let wybor=0;                    //Stworzenie pomocnicznej zmiennej o nazwie wybor z początkową wartością 0
+        const pi=3.1415;                //Stworzenie stałej zmiennej pi, która przechpwywuje liczbę PI
+        kolo.addEventListener("change", //Jeżeli użytkownik kliknie radio z id kolo to zablokuje się możliwość wpisania wysokości oraz nada do pomocnicznej zmiennej globalnej wybor 1 
+        function(){
+            wybor=1;
+            wysokosc.disabled = true;
+        });
+        walec.addEventListener("change",//Jeżeli użytkownik kliknie radio z id walec to odblokuje się możliwość wpisania wysokości oraz nada do pomocnicznej zmiennej globalnej wybor 2 
+        function(){
+            wybor=2;
+            wysokosc.disabled = false;
+        });
+        stozek.addEventListener("change",//Jeżeli użytkownik kliknie radio z id stozek to odblokuje się możliwość wpisania wysokości oraz nada do pomocnicznej zmiennej globalnej wybor 3
+        function(){
+            wybor=3;
+            wysokosc.disabled = false;
+        });
+        class Kolo {  //Stworzenie klasy Kolo
+            #promien; //Stworzenie prywatnego pola o nazwie promien, które będzie przechowywać promień koła
+            
+            get r(){                            //Stworzenie get'era dla prywatnego pola promien
+                return this.#promien; 
+            }
+            set r(value){                       //Stworzenie set'era dla prywatnego pola promien
+                if(value<0){
+                    alert("Nie może być promień mniejszy od zera 0_0");
+                }else{
+                    this.#promien = value;
+                }
+            }
+
+            obliczPole(){  //Stworzenie metody obliczPole() która będzie obliczać polę
+                return (pi * this.r * this.r).toFixed(2); //wzór: pi*r^2
+            }
+        }
+        class Walec extends Kolo{  //Stworzenie klasy Walec która dziedziczy od klasy Kolo, promień oraz metodę obliczPole
+            #wysokosc;
+            
+            get h(){                            //Stworzenie get'era dla prywatnego pola wysokosc
+                return this.#wysokosc;
+            }
+            set h(value){                       //Stworzenie set'era dla prywatnego pola wysokosc
+                if(value<=0){
+                    alert("Nie może być wysokość mniejsza, bądź równa zero o_0");
+                }else{
+                    this.#wysokosc = value;
+                }
+            }
+
+            obliczPole(){  //Nadpisanie metody w miejsce udziedziczonej metody obliczPole();
+                return (2*pi*this.r*(this.r+this.h)).toFixed(2); //wzór: 2pi*r*(r+h) 
+            }
+
+            obliczObjetosc(){ //Stworzenie metody obliczObjetosc() która będzie obliczać objętość
+                return (2*pi*this.r*this.r*this.h).toFixed(2);   //wzór: 2*pi*r^2*h
+            }
+        }
+        class Stozek extends Walec{ //Stworzenie klasy Stozek która dziedziczy od klasy Walec, promień, wysokosc oraz metody: obliczPole i obliczObjetosc
+            obliczPole(){       //Nadpisanie metody w miejsce udziedziczonej metody obliczPole();
+                return (pi*this.r*(this.r + Math.sqrt((this.r*this.r)+(this.h*this.h)))).toFixed(2); //wzrór: pi*r*(r + pierwiastek z (r^2 + h^2))
+            }
+
+            obliczObjetosc(){   //Nadpisanie metody w miejsce udziedziczonej metody obliczObjetosc();
+                return ((pi*this.r*this.r*this.h)/3).toFixed(2); //wzór: (pi*r^2*h)/3
+            }
+        }
+
+        const oblicz=()=>{ //Stworzenie metody, która będzie wywołana przyciskiem
+            switch(wybor){
+                case 1:         //Wykonuje się kiedy użytkownik wybrał opcję obliczenia koła
+                    let k = new Kolo(); //Stworzenie objektu k dla klasy Kolo
+                    k.r = parseFloat(promien.value); //Przekazanie do klasy do zmiennej r wartość z pola o id=promien
+                    pole.value = k.obliczPole(); //Przekazanie do komórki w HTML'u o id=pole wartości która jest zwracana z metody obliczPole z klasy Kolo
+                    break;
+                case 2:         //Wykonuje się kiedy użytkownik wybrał opcję obliczenia walca
+                    let w = new Walec(); //Stworzenie objektu w dla klasy Walec
+                    w.r = parseFloat(promien.value); //Przekazanie do klasy do zmiennej r wartość z pola o id=promien
+                    w.h = parseFloat(wysokosc.value); //Przekazanie do klasy do zmiennej h wartość z pola o id=wysokosc
+                    pole.value = w.obliczPole(); //Przekazanie do komórki w HTML'u o id=pole wartości która jest zwracana z metody obliczPole z klasy Walec
+                    objetosc.value = w.obliczObjetosc(); //Przekazanie do komórki w HTML'u o id=objetosc wartości która jest zwracana z metody obliczObjetosc z klasy Walec
+                    break;
+                case 3:         //Wykonuje się kiedy użytkownik wybrał opcję obliczenia stozka
+                    let s = new Stozek(); //Stworzenie objektu s dla klasy Stozek
+                    s.r = parseFloat(promien.value); //Przekazanie do klasy do zmiennej r wartość z pola o id=promien
+                    s.h = parseFloat(wysokosc.value); //Przekazanie do klasy do zmiennej h wartość z pola o id=wysokosc
+                    pole.value = s.obliczPole(); //Przekazanie do komórki w HTML'u o id=pole wartości która jest zwracana z metody obliczPole z klasy Stozek
+                    objetosc.value = s.obliczObjetosc(); //Przekazanie do komórki w HTML'u o id=objetosc wartości która jest zwracana z metody obliczObjetosc z klasy Stozek
+                    break;
+                default:
+                    alert("Ale wybierz co chcesz obliczyć ;0");
+            }
+        }
+    </script>                 <!--Koniec skryptu-->
+</body>
+</html>

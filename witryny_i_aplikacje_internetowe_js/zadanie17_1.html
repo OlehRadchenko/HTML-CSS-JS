@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        const licz=()=>{
+            const stri = pole.value;
+            let znak = stri.length;
+            let wyr = 0;
+            let index = 0;
+            let start = 0;
+            while(index != -1){
+                index = stri.indexOf(" ", start);
+                if(index != -1){
+                    start = index + 1;
+                    wyr += 1;
+                }
+            }
+            wyr += 1;
+            wynik_1.innerHTML = `Ilość znaków: ${znak}`;
+            wynik_2.innerHTML = `Ilość wyrazów: ${wyr}`;
+        }
+    </script>
+    <title>Zadanie 17</title>
+</head>
+<body>
+    <fieldset>
+        <legend>
+            Ilosć znaków i wyrazów w tekscie
+        </legend>
+        <textarea rows="10" cols="20" id="pole" onkeyup="licz()"></textarea>
+        <p id="wynik_1"></p>
+        <p id="wynik_2"></p>
+    </fieldset>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zadanie 28</title>
+    <script>
+        const cena_paliwa = 7.80;
+        function Oferta(marka, model, cena, spalanie, rocznik){
+            this.marka = marka;
+            this.model = model;
+            this.cena = cena;
+            this.spalanie = spalanie;
+            this.rocznik = rocznik;
+            this.koszt = function() {
+                let cena_za1 = "Koszt: ";
+                cena_za1 += cena_paliwa/100*this.spalanie;
+                cena_za1 += " na 1km";
+                return cena_za1;
+            }
+            this.wiek = function() {
+                let data = new Date();
+                let rok = data.getFullYear()-this.rocznik;
+                if(rok >= 5){
+                    rok+=" lat";
+                }else if(rok == 1){
+                    rok+=" rok";
+                }else if(rok < 0){
+                    rok=" No nie może być to samochód z przyszłości ;0";
+                }else if(rok == 0){
+                    rok=" To jest najnowsze auto i ma mniej niż 1 rok";
+                }else{
+                    rok+=" lata";
+                }
+                return rok;
+            }
+
+        }
+        const odpal=()=>{
+            const ma = mar.value;
+            const mo = mod.value;
+            const ce = parseFloat(cen.value);
+            const spa = parseFloat(spal.value);
+            const r = parseFloat(ro.value);
+            let auto = new Oferta(ma,mo,ce,spa,r);
+            pods.innerHTML = "<b>Marka: "+auto.marka+"<br>"+"Model: "+auto.model+"<br>"+"Cena: "+auto.cena+" zł </b><br>"+"Spalanie: "+auto.spalanie+"L/100km<br>"+"Rocznik: "+auto.rocznik+"<br>"+auto.koszt()+"<br>Wiek: "+auto.wiek()+"<br>";
+        }
+    </script>
+</head>
+<body>
+    Podaj marke auta: <input type="text" id="mar"><br>
+    Podaj model auta: <input type="text" id="mod"><br>
+    Podaj cene auta: <input type="number" id="cen"><br>
+    Podaj spalanie auta: <input type="number" id="spal">L/100km<br>
+    Podaj rocznik auta: <input type="number" id="ro"><br>
+    <input type="button" value="Dodaj!" onclick="odpal()">
+    <br><br>
+    Podsumowanie:
+    <p id="pods"></p>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        const pierwsza=()=>{
+            let a = parseInt(liczba.value);
+            let i = 2;
+            pierw = Math.sqrt(a);
+            if(a == 1 || a == 3){
+                wynik.innerHTML = "Ta liczba jest liczbą pierwszą";
+            }else if(a == 2){
+                wynik.innerHTML = "Tą liczbę eliminujemy ;D";
+            }else{
+
+            while(i <= pierw){
+                if(a%i == 0){
+                    wynik.innerHTML = "Ta liczba jest liczbą złożoną";
+                    break;
+                }
+                i++;
+                wynik.innerHTML = "Ta liczba jest liczbą pierwszą";
+            }
+        }
+        }
+    </script>
+    <title>Liczba pierwsza</title>
+</head>
+<body>
+    <h1>Czy liczba jest pierwsza czy złożona?</h1>
+    Podaj liczbę: <input type="number" id="liczba"> <input type="button" value="Wylicz" onclick="pierwsza()">
+    <p id="wynik"></p>
+</body>
+</html>

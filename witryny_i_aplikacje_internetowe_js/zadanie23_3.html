@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zadanie 23_3</title>
+</head>
+<body onload="start()">
+    <div style="background-color: black; width: 900px; height: 900px;left: 0px; top: 0px;position: absolute;"></div>
+    <div style="background-color: red; width: 100px; height: 100px; border-radius:70px; border:2px solid black; position: absolute; left: 0px; top: 0px;" id="kula" onclick="start()"></div>
+    <script>
+            let krokx = 6;
+            let kroky = 4;
+            let timeid = null;
+        const przesun=()=>{
+            let x = parseInt(kula.style.left);
+            let y = parseInt(kula.style.top);
+            x += krokx;
+            y += kroky;
+            if(x>795 || x<1){
+                krokx= -(krokx);
+            }else if(y>795 || y<1){
+                kroky= -(kroky);
+            }
+            kula.style.left = x+"px";
+            kula.style.top = y+"px";
+
+        }
+        const start=()=>{
+            if(timeid==null){
+                timeid = setInterval("przesun();", 50);
+            }else{
+                clearInterval(timeid);
+                timeid=null;
+            }
+        }
+    </script>
+</body>
+</html>

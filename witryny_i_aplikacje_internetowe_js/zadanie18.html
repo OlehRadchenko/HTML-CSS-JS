@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        /*const wyswietl=(a,b)=>{
+            for(let i=0; i<b; i++){
+                wynik_js += a[i]+", ";
+            }
+            wynik.innerHTML=wynik_js;
+        }*/
+        const sortLiczb=(a,b)=>{
+            return a-b;
+        }
+        const gen=()=>{
+            const ile = ilosc_elementow.value;
+            const od = parseInt(od_p.value);
+            const doo = parseInt(do_p.value);
+            let najw = 0;
+            let najm = 100000;
+            let suma = 0;
+            let wynik_js = "Nasze elementy: ";
+            let tab = [];
+            if(ile>0){
+            for(let i=0; i<ile; i++){
+                tab[i] = Math.floor((Math.random() * doo) + od);
+                wynik_js += tab[i]+", ";
+            }
+
+            for(let i=0; i<ile; i++){
+                if(tab[i] > najw){
+                    najw = tab[i];
+                }
+            }
+            wynik_js += "<br> Największy element: "+najw+"<br>";
+
+            for(let i=0; i<ile; i++){
+                if(tab[i] < najm){
+                    najm = tab[i];
+                }
+            }
+            wynik_js += "Najmniejszy element: "+najm+"<br>";
+
+            for(let i=0; i<ile; i++){
+                suma+=tab[i];
+            }   
+            let srednia = suma/ile;
+            wynik_js += "Średnia wszystkich elementów: "+srednia.toFixed(2)+"<br>";
+
+            const wyst = parseInt(prompt("Jaką liczbę mam znaleźć i podliczyć w tym przedziale?"));
+            let podlicz = 0;
+            for(let i=0; i<ile; i++){
+                if(tab[i] == wyst){
+                    podlicz += 1;
+                }
+            }
+            wynik_js += "Ilość występowań liczby: "+wyst+" = "+podlicz+"<br>";
+
+            wynik_js += "Liczby w kolejności rosnącej: "
+            let tab2 = tab;
+            tab2.sort(sortLiczb);
+            for(let i=0; i<ile; i++){
+                wynik_js += tab2[i]+", ";
+            }
+
+            wynik_js += "<br>Liczby w kolejności rosnącej + podniesione do kwadratu: ";
+            let tab3 = tab2;
+            tab3 = tab3.map(value => value ** 2);
+            for(let i=0; i<ile; i++){
+                wynik_js += tab3[i]+", ";
+            }
+            
+            let tab4 = tab2.filter(n => n%2 === 0);
+            let parzyste = tab4.length;
+            let tab5 = tab2.filter(n => n%2 !== 0);
+            let nieparzyste = tab5.length;
+            wynik_js += "<br>Ilość liczb parzystych: "+parzyste+"<br> Ilość liczb nieparzystych: "+nieparzyste;
+        }else{
+            wynik_js = "Nie kłam, nie może być tyle elementów ;c"
+        }
+            wynik.innerHTML = wynik_js;
+
+        }
+    </script>
+    <title>Zadanie 18</title>
+</head>
+<body>
+    Ile będzie elementów tablicy: <input type="number" id="ilosc_elementow"><br>
+    Przedział losowych liczb: od <input type="number" id="od_p">&nbsp;do&nbsp;<input type="number" id="do_p"><br>
+    <input type="button" value="Wygeneruj" onclick="gen()">
+    <p id="wynik"></p>
+</body>
+</html>

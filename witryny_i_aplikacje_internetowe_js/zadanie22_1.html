@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zadanie 22_1</title>
+</head>
+<body onload="odliczanie();">
+    <fieldset style="text-align:center; width:500px;  margin-left: auto; margin-right: auto; margin-top: 40px;">
+        <legend>Data</legend>
+        <p id="wynik"></p>
+    </fieldset>
+    <script>
+        const dodaj_zero=(a)=>{
+            if(a<10){
+                return "0"+a;
+            }else{
+                return a;
+            }
+        }
+        const odliczanie=()=>{
+        let miesiace = ["Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec", "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"];
+        let dni_tyg = ["Niedziela", "Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota"];
+        let data = new Date();
+        
+        let r = data.getFullYear();
+        let d = data.getDate();
+        let d_tyg = dni_tyg[data.getDay()];
+        let m = miesiace[data.getMonth()];
+        let h = dodaj_zero(data.getHours());
+        let min = dodaj_zero(data.getMinutes());
+        let sec = dodaj_zero(data.getSeconds());
+
+        wynik.innerHTML=`Dzisiaj jest ${d} ${m} ${r} ${d_tyg} godzina: ${h}:${min}:${sec}`;
+        setTimeout("odliczanie();", 1000);
+        }
+    </script>
+</body>
+</html>

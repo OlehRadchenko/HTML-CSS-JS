@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        /*const wyswietl=(a,b)=>{
+            for(let i=0; i<b; i++){
+                wynik_js += a[i]+", ";
+            }
+            wynik.innerHTML=wynik_js;
+        }*/
+        let tab = [];
+        const gen=()=>{
+            const ile = ilosc_elementow.value;
+            const od = parseInt(od_p.value);
+            const doo = parseInt(do_p.value);
+            if(ile>0){
+            for(let i=0; i<ile; i++){
+                tab[i] = Math.floor((Math.random() * doo) + od);
+            }
+            wynik.innerHTML = "Nasze elementy: " + tab.join(", ");
+        }else{
+            wynik_js = "Nie kłam, nie może być tyle elementów ;c"
+        }
+        }
+        const dodaj_p=()=>{
+            const liczba = parseInt(prompt("Jaką liczbę chcesz dodać?"));
+            tab.unshift(liczba);
+            const str = tab.join(", ");
+            wynik2.innerHTML = "Nasze elementy: "+str;
+        }
+        const dodaj_k=()=>{
+            const liczba = parseInt(prompt("Jaką liczbę chcesz dodać?"));
+            tab.push(liczba);
+            const str = tab.join(", ");
+            wynik2.innerHTML = "Nasze elementy: "+str;
+        }
+        const dodaj_s=()=>{
+            const liczba = parseInt(prompt("Jaką liczbę chcesz dodać?"));
+            const gdzie = parseInt(prompt("W jakim miejscu chcesz ją dodać?"));
+            tab.splice(gdzie-1,0,liczba);
+            const str = tab.join(", ");
+            wynik2.innerHTML = "Nasze elementy: "+str;
+        }
+        const odej_p=()=>{
+            tab.shift();
+            const str = tab.join(", ");
+            wynik2.innerHTML = "Nasze elementy: "+str;
+        }
+        const odej_k=()=>{
+            tab.pop();
+            const str = tab.join(", ");
+            wynik2.innerHTML = "Nasze elementy: "+str;
+        }
+        const odej_s=()=>{
+            const gdzie = parseInt(prompt("W jakim miejscu chcesz zabrać liczbę?"));
+            tab.splice(gdzie-1,1);
+            const str = tab.join(", ");
+            wynik2.innerHTML = "Nasze elementy: "+str;
+        }
+    </script>
+    <title>Zadanie 19</title>
+</head>
+<body>
+    Ile będzie elementów tablicy: <input type="number" id="ilosc_elementow"><br>
+    Przedział losowych liczb: od <input type="number" id="od_p">&nbsp;do&nbsp;<input type="number" id="do_p"><br>
+    <input type="button" value="Wygeneruj" onclick="gen()">
+    <p id="wynik"></p>
+    Dodaj elementy: <input type="button" value="na poczatek" onclick="dodaj_p()">&nbsp;&nbsp;&nbsp;<input type="button" value="na koniec" onclick="dodaj_k()">&nbsp;&nbsp;&nbsp;<input type="button" value="w srodku" onclick="dodaj_s()">
+    <br>Usuń elementy: <input type="button" value="na poczatek" onclick="odej_p()">&nbsp;&nbsp;&nbsp;<input type="button" value="na koniec" onclick="odej_k()">&nbsp;&nbsp;&nbsp;<input type="button" value="w srodku" onclick="odej_s()">
+    <p id="wynik2"></p>
+</body>
+</html>

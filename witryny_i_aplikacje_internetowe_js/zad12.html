@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        const nwd=()=> {
+            let a = parseInt(liczba1.value);
+            let b = parseInt(liczba2.value);
+
+            while(a!=b){
+                if(a>b)
+                    a -= b;    
+                else
+                    b -= a;
+            }
+            wynik.innerHTML = "Największy Wspólny Dzielnik(NWD) to " + a;
+        }
+    </script>
+    <title>Największy Wspólny Dzielnik</title>
+</head>
+<body>
+    <h1>Największy Wspólny Dzielnik</h1>
+    Podaj pierwszą liczbę: <input type="number" id="liczba1"><br>
+    Podaj drugą liczbę: <input type="number" id="liczba2"><br>
+    <input type="button" value="Oblicz" onclick="nwd()"><br>
+    <p id="wynik"></p>
+</body>
+</html>

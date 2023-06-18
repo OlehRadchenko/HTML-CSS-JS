@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        const start=()=>{
+            const los=Math.floor(Math.random()*100)+1;
+            let licznik=0;
+            let wpis;
+            do{
+                wpis = parseInt(window.prompt("Podaj liczbe od 1 do 100"));
+                if(wpis>0 && wpis<=100){
+                    if(wpis<los){
+                    window.alert("Liczba którą zgadujesz jest większa ;DD");
+                    licznik += 1;
+                    }else if(wpis>los){
+                    window.alert("Liczba którą zgadujesz jest mniejsza ;DD");
+                    licznik += 1;
+                    }else if(wpis == los){
+                    licznik += 1;
+                    window.alert("Brawo, udało ci się zgadnąć w "+licznik+" próbach :DD");
+                    }
+                }else{
+                    window.alert("Nie poprawna wartosć ;c");
+                }
+            }while(wpis != los)
+
+        }
+    </script>
+    <title>Zgadnij ;)</title>
+</head>
+<body>
+    <input type="button" value="Zacznij gre ;)" onclick="start()">
+</body>
+</html>

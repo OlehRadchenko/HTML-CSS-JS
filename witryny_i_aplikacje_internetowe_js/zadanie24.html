@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zadanie 24</title>
+</head>
+<body>
+    Proszę podać swoje dane:<br>(wszystkie pola muszą zostać wypełnione)<br><br><b>Dane osobiste:</b>
+    <form>
+        Imię: <input type="text" id="imie"><br><br>
+        Nazwisko: <input type="text" id="nazwisko"><br><br>
+        Numer telefonu: <input type="text" id="telefon">&nbsp;&nbsp;format: +48 (022) 000000<br><br>
+        Kod pocztowy: <input type="text" id="kod_poczt">&nbsp;&nbsp;format: 00-000<br><br>
+        <input type="button" value="Wyślij!" onclick="walidacja()">
+    </form>
+    <p id="wynik"></p>
+    <script>
+       const walidacja=()=>{
+           const im = imie.value;
+           const naz = nazwisko.value;
+           const nr_t = telefon.value;
+           const kod = kod_poczt.value;
+
+           const imRe = /^[A-ZŁŻ]{1}[a-zążźłóęśńć]{2,}$/;
+           const nazRe = /^[A-ZŁŻŹŚ]{1}[a-zążźłóęńść]{1,}(-[A-ZŁŻŹŚ])?[a-zążźłóęńść]{1,}$/;
+           const nr_tRe = /^\+[0-9]{2}\([0-9]{3}\)[0-9]{6}$/;
+           const kodRe = /^[0-9]{2}-{1}[0-9]{3}$/;
+           if(imRe.test(im)){
+            alert("Dobrze wpisałeś imie");
+           }else{
+            alert("Źle wpisałeś imie ;c");
+           }
+           if(nazRe.test(naz)){
+            alert("Dobrze wpisałeś nazwisko");
+           }else{
+            alert("Źle wpisałeś nazwisko ;c");
+           }
+           if(nr_tRe.test(nr_t)){
+            alert("Dobrze wpisałeś numer telefonu");
+           }else{
+            alert("Źle wpisałeś numer telefonu ;c");
+           }
+           if(kodRe.test(kod)){
+            alert("Dobrze wpisałeś kod pocztowy");
+           }else{
+            alert("Źle wpisałeś kod pocztowy ;c");
+           }
+       }
+    </script>
+</body>
+</html>

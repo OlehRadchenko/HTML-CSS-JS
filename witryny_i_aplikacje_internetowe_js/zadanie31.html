@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pole i Obwód</title>
+</head>
+<body>
+    <fieldset style="text-align:center; width:500px;  margin-left: auto; margin-right: auto; margin-top: 40px;">
+        <legend>Wybierz</legend>
+        <table style="width: 500px; height: 50px;">
+            <tr>
+            <td><input type="radio" name="wyb" id="prostokat"></td><td><input type="radio" name="wyb" id="prostopadl"></td><td><input type="radio" name="wyb" id="ostroslup"></td>
+            </tr>
+            <tr>
+            <td>Prostokąt</td><td>Prostopadłościan</td><td>Ostrosłup prawidłowy czworokątny</td> <!--LINK DO WZORÓW: https://cyrkiel.info/liceum/ostroslup-prawidlowy-czworokatny/#:~:text=W%20przypadku%20ostros%C5%82upa%20prawid%C5%82owego%20czworok%C4%85tnego%20podstaw%C4%85%20jest%20kwadrat%2C,3a2H%20V%20%3D%201%203%20a%202%20H.-->
+            </tr>
+        </table>
+    </fieldset>
+    <fieldset style="text-align:center; width:500px;  margin-left: auto; margin-right: auto; margin-top: 40px;">
+        <legend>Wynik</legend>
+        <table style="width: 500px; height: 50px;">
+            <tr>
+            <td>Bok 1</td><td><input type="number" id="bok1"></td><td>Pole</td><td><input type="number" id="pole" disabled="disabled"></td>
+            </tr>
+            <tr>
+            <td>Bok 2</td><td><input type="number" id="bok2"></td><td>Objętość</td><td><input type="number" id="objetosc" disabled="disabled"></td>
+            </tr>
+            <tr>
+            <td>Wysokość</td><td><input type="number" id="wysokosc"></td>
+            </tr>
+            <tr>
+            <td></td><td><input type="button" value="Oblicz" onclick="oblicz()"></td>
+            </tr>
+        </table>
+    </fieldset>
+    <script>
+        let wybor=0;
+        prostokat.addEventListener("change",
+        function(){
+            wybor=1;
+            wysokosc.disabled = true;
+        });
+        prostopadl.addEventListener("change",
+        function(){
+            wybor=2;
+            wysokosc.disabled = false;
+        });
+        ostroslup.addEventListener("change",
+        function(){
+            wybor=3;
+            wysokosc.disabled = false;
+        });
+        class Prostokat{
+            #a;
+            #b;
+
+            get bok_a(){
+                    return this.#a;
+            }
+            set bok_a(value){
+                if(value <= 0){
+                    alert("Nie można mieć bok o długości mniejszej lub równej 0   ;0");
+                }else{
+                    this.#a = value;
+                }
+            }
+
+            get bok_b(){
+                    return this.#b;
+            }
+            set bok_b(value){
+                if(value <= 0){
+                    alert("Nie można mieć bok o długości mniejszej lub równej 0   ;0");
+                }else{
+                    this.#b = value;
+                }
+            }
+
+            obliczPole(){
+                return this.bok_a*this.bok_b;
+            }
+        }
+        class Prostopadloscian extends Prostokat{
+            #wys;
+
+            get h(){
+                    return this.#wys;
+            }
+            set h(value){
+                if(value <= 0){
+                    alert("Nie można mieć wysokość o długości mniejszej lub równej 0   ;0");
+                }else{
+                    this.#wys = value;
+                }
+            }
+
+            obliczPole(){
+                return (2*this.bok_a*this.bok_b + 2*this.bok_a*this.h + 2*this.bok_b*this.h);
+            }
+            obliczObj(){
+                return this.bok_a*this.bok_b*this.h;
+            }
+        }
+        class Ostroslup extends Prostopadloscian{
+            obliczPole(){
+                let h1 = Math.sqrt((this.bok_b*this.bok_b)-(this.bok_a*this.bok_a));
+                return ((this.bok_a*this.bok_a)+(2*this.bok_a*h1));
+            }
+            obliczObj(){
+                return (this.bok_a*this.bok_b*this.h)/3;
+            }
+        }
+            const oblicz=()=>{
+                switch(wybor){
+                    case 1: //PROSTOKĄT
+                        let p = new Prostokat();
+                        p.bok_a = parseFloat(bok1.value);
+                        p.bok_b = parseFloat(bok2.value);
+                        pole.value = p.obliczPole();
+                        console.log(p.bok_a+", "+p.bok_b); //SPRAWDZENIE
+                        break;
+                    case 2: //PROSTOPADŁOŚĆIAN
+                        let pr = new Prostopadloscian();
+                        pr.bok_a = parseFloat(bok1.value);
+                        pr.bok_b = parseFloat(bok2.value);
+                        pr.h = parseFloat(wysokosc.value);
+                        pole.value = pr.obliczPole();
+                        objetosc.value = pr.obliczObj();
+                        console.log(pr.bok_a+", "+pr.bok_b+", "+pr.h); //SPRAWDZENIE
+                        break;
+                    case 3: //OSTROSŁUP
+                        let ostr = new Ostroslup();
+                        ostr.bok_a = parseFloat(bok1.value);
+                        ostr.bok_b = parseFloat(bok2.value);
+                        ostr.h = parseFloat(wysokosc.value);
+                        pole.value = ostr.obliczPole();
+                        objetosc.value = ostr.obliczObj();
+                        console.log(ostr.bok_a+", "+ostr.bok_b+", "+ostr.h); //SPRAWDZENIE
+                        break;
+                    default:
+                        alert("Nie podałeś figury i nie wiem co mam zrobić z tymi bokami ;c");
+                }
+            }
+    </script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zadanie 29_1</title>
+</head>
+<body>
+    <fieldset style="text-align:center; width:500px;  margin-left: auto; margin-right: auto; margin-top: 40px;">
+        <legend>Oblicz</legend>
+        <table style="width: 500px; height: 50px;">
+        <tr>
+        <td><input type="radio" id="natezenie" name="wyb"></td><td><input type="radio" id="napiecie" name="wyb"></td><td><input type="radio" id="rezystancje" name="wyb"></td>
+        </tr>
+        <tr>
+        <td>Natężenie</td><td>Napięcie</td><td>Rezystancje</td>
+        </tr>
+        </table>
+    </fieldset>
+        <table style="margin-left: auto; margin-right: auto; margin-top: 50px; text-align: center;">
+        <tr>
+        <td>Natężenie:</td><td><input type="number" id="nate"></td>
+        </tr>
+        <tr>
+        <td>Napięcie:</td><td><input type="number" id="napi"></td>
+        </tr>
+        <tr>
+        <td>Rezystancja: </td><td><input type="number" id="rez"></td>
+        </tr>
+        <tr>
+        <td></td><td><input type="button" value="Oblicz" onclick="oblicz()"></td>
+        </tr>
+        </table>
+
+        <script>
+            let wybor=0;
+            natezenie.addEventListener("change",
+            function(){
+                wybor=1;
+                nate.disabled = true;
+                rez.disabled = false;
+                napi.disabled = false;
+            });
+            napiecie.addEventListener("change",
+            function(){
+                wybor=2;
+                nate.disabled = false;
+                rez.disabled = false;
+                napi.disabled = true;
+            });
+            rezystancje.addEventListener("change",
+            function(){
+                wybor=3;
+                rez.disabled = true;
+                nate.disabled = false;
+                napi.disabled = false;
+            });
+            class Ohm {
+                #R; //rezystancja
+                #U; //napięcie
+                #I; //natężenie
+                get re(){
+                    return this.#R;
+                }
+                set re(value){
+                    if(value == 0){
+                        alert("Nie można tak ;c");
+                    }else{
+                    this.#R = value;
+                    }
+                }
+
+                get nap(){
+                    return this.#U;
+                }
+                set nap(value){
+                    this.#U = value;
+                }
+
+                get nat(){
+                    return this.#I;
+                }
+                set nat(value){
+                    if(value == 0){
+                        alert("Nie można tak ;c");
+                    }else{
+                    this.#I = value;
+                    }
+                }
+
+                ob_rez(){
+                    return this.nap/this.nat;
+                }
+                ob_nap(){
+                    return this.nat*this.re;
+                }
+                ob_nat(){
+                    return this.nap/this.re;
+                }
+            }
+            const oblicz=()=>{
+                let o = new Ohm();
+                switch(wybor){
+                    case 1:
+                        o.re = parseFloat(rez.value);
+                        o.nap = parseFloat(napi.value);
+                        nate.value = o.ob_nat();
+                        break;
+                    case 2:
+                        o.re = parseFloat(rez.value);
+                        o.nat = parseFloat(nate.value);
+                        napi.value = o.ob_nap();
+                        break;
+                    case 3:
+                        o.nat = parseFloat(nate.value);
+                        o.nap = parseFloat(napi.value);
+                        rez.value = o.ob_rez();
+                        break;
+                    default:
+                        alert("Podaj co chcesz obliczyć ;c");
+                }
+            }
+        </script>
+</body>
+</html>

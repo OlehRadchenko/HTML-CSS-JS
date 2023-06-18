@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        let licznik = 0;
+        let timeid = null;
+        const wyswietl=()=>{
+            wynik.innerHTML=licznik++;
+        }
+        const uruchom=()=>{
+            timeid = setInterval("wyswietl();", 1000);
+            start.disabled=true;
+        }
+        const zeruj=()=>{
+            licznik = 0;
+            wyswietl();
+        }
+        const stopp=()=>{
+            clearInterval(timeid);
+            timeid=null;
+            start.disabled=false;
+        }
+    </script>
+    <title>Zadanie 23_1</title>
+</head>
+<body>
+    <input type="button" value="Uruchom" onclick="uruchom()" id="start">&nbsp;
+    <input type="button" value="Zeruj" onclick="zeruj()">&nbsp;
+    <input type="button" value="Stop" onclick="stopp()"><br>
+    <p id="wynik"></p>
+</body>
+</html>

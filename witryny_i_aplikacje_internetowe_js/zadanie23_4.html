@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zadanie 23_4</title>
+    <style>
+        #obrazek{
+            width: 100%;
+            height: 100%;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        #tekst{
+            position: absolute;
+            top: 50%;
+            left: 40%;
+            color: azure;
+            box-shadow: inset 0.2em 0.2em 1em 0.1em black, 0 0 1em blue;
+            font-size: 50px; 
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <img src="obraz/1.jpg" id="obrazek" alt="obraz1">
+    <h2 id="tekst">Pierwszy obraz</h2>
+    <p id="wynik"></p>
+    <script>
+        const img = ["obraz/1.jpg", "obraz/2.jpg", "obraz/3.jpg", "obraz/4.jpg", "obraz/5.jpg", "obraz/6.jpg"];
+        const text = ["Pierwszy obraz", "Drugi obraz", "Trzeci obraz", "Czwarty obraz", "Piąty obraz", "Szósty obraz"];
+        let index = 0;
+        const zmienslajd=()=>{
+            if(index+1 <= text.length){
+                obrazek.src = img[index];
+                tekst.textContent = text[index];
+                wynik.innerHTML = index;
+                index++;
+                
+            }else{
+                index = 0;
+            }
+        }
+        setInterval("zmienslajd()", 3000);
+    </script>
+</body>
+</html>

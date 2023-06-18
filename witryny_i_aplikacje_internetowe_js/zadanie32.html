@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zadanie 32</title>
+</head>
+<body>
+    <fieldset style="text-align:center; width:500px;  margin-left: auto; margin-right: auto; margin-top: 40px;">
+        <legend>Wybierz wariant zakupu</legend>
+        <table style="width: 500px; height: 50px;">
+            <tr>
+            <td><input type="radio" name="wyb" id="cena"></td><td><input type="radio" name="wyb" id="cena_dod"></td><td><input type="radio" name="wyb" id="cena_dod_u"></td>
+            </tr>
+            <tr>
+            <td>Cena auta</td><td>Cena auta z dodatkami</td><td>Cena auta z dodatkami i ubezpieczeniem</td>
+            </tr>
+        </table>
+    </fieldset>
+    <fieldset style="text-align:center; width:500px;  margin-left:3%; margin-right:4.5%; margin-top:40px; float:left" id="podstawa">
+        <legend>Nowe Auto</legend>
+        <table style="width: 500px; height: 50px;">
+            <tr>
+            <td>Model auta: </td><td><input type="text" id="model"></td>
+            </tr>
+            <tr>
+            <td>Cena(w EURO): </td><td><input type="number" id="cena_auta" value="0"></td>
+            </tr>
+            <tr>
+            <td>Kurs EURO do PLN: </td><td><input type="number" id="kurs" value="0"></td>
+            </tr>
+        </table>
+    </fieldset>
+    <fieldset style="text-align:center; width:500px;  margin-left: auto; margin-right: auto; margin-top:40px; float:left" id="dodatki">
+        <legend>Dodatki</legend>
+        <table style="width: 500px; height: 50px;">
+            <tr>
+            <td>Alarm: </td><td><input type="number" id="alarm" value="0"></td>
+            </tr>
+            <tr>
+            <td>Klimatyzacja: </td><td><input type="number" id="klimat" value="0"></td>
+            </tr>
+            <tr>
+            <td>Radioodtwarzacz: </td><td><input type="number" id="radio" value="0"></td>
+            </tr>
+        </table>
+    </fieldset>
+    <fieldset style="text-align:center; width:500px;  margin-left:4.5%; margin-right:3%; margin-top:40px; float:left" id="dodatki2">
+        <legend>Ubezpieczenie</legend>
+        <table style="width: 500px; height: 50px;">
+            <tr>
+            <td><input type="radio" id="pierwsze_auto"></td><td>Pierwsze auto</td>
+            </tr>
+            <tr>
+            <td>Ilość lat: </td><td><input type="number" id="lata_u" value="0"></td>
+            </tr>
+        </table>
+    </fieldset>
+    <div style="text-align:center; width:500px;  margin-left:auto; margin-right:auto; margin-top:40px; float:none">
+        <table style="width: 500px; height: 50px;">
+            <tr>
+            <td><p id="wynik"></p></td><td rowspan="2"><input type="button" value="Oblicz" onclick="oblicz();"></td>
+            </tr>
+            <tr>
+            <td><p id="wynik_liczba"></p></td>
+            </tr>
+        </table>
+    </div>
+    <script>
+        let wybor=0;
+        let ubezp=false;
+        let cena2="";
+        cena.addEventListener("change",
+        function(){
+            wybor=1;
+            dodatki.disabled = true;
+            dodatki2.disabled = true;
+            podstawa.disabled = false;
+            cena2 = "Cena auta";
+        });
+        cena_dod.addEventListener("change",
+        function(){
+            wybor=2;
+            dodatki.disabled = false;
+            dodatki2.disabled = true;
+            podstawa.disabled = false;
+            cena2 = "Cena auta z dodatkami";
+        });
+        cena_dod_u.addEventListener("change",
+        function(){
+            wybor=3;
+            dodatki.disabled = false;
+            dodatki2.disabled = false;
+            podstawa.disabled = false;
+            cena2 = "Cena auta z dodatkami i ubezpieczeniem";
+        });
+        pierwsze_auto.addEventListener("change",
+        function(){
+            ubezp = true;
+        });
+        class NoweAuto{
+            #model_auta;
+            #cena_euro;
+            #kurs_euro;
+
+            get mod(){
+                return this.#model_auta;
+            }
+            set mod(value){
+                this.#model_auta = value;
+            }
+
+            get cen(){
+                return this.#cena_euro;
+            }
+            set cen(value){
+                if(value<=0){
+                    alert("Tak chyba się nie da -_-");
+                }else{
+                    this.#cena_euro = value;
+                }
+            }
+
+            get kur(){
+                return this.#kurs_euro;
+            }
+            set kur(value){
+                if(value<=0){
+                    alert("Tak chyba się nie da -_-");
+                }else{
+                    this.#kurs_euro = value;
+                }
+            }
+
+            ObliczCene(){
+                return this.cen * this.kur;
+            }
+        }
+        class AutoZDodatkami extends NoweAuto{
+            #alarm;
+            #radioodtwarzacz;
+            #klimatyzacja;
+
+            get alarm(){
+                return this.#alarm;
+            }
+            set alarm(value){
+                this.#alarm = value;
+            }
+
+            get radio(){
+                return this.#radioodtwarzacz;
+            }
+            set radio(value){
+                this.#radioodtwarzacz = value;
+            }
+
+            get klima(){
+                return this.#klimatyzacja;
+            }
+            set klima(value){
+                this.#klimatyzacja = value;
+            }
+
+            ObliczCene(){
+                return (this.cen * this.kur) + this.alarm + this.radio + this.klima;
+            }
+        }
+        class Ubezpieczenie extends AutoZDodatkami{
+            #pierwsze_auto; // +1.000 zł
+            #ilosc_lat;     // +500zł/rok
+
+            get pierw_auto(){
+                return this.#pierwsze_auto;
+            }
+            set pierw_auto(value){
+                if(value != true && value != false){
+                    alert("Coś tu nie gra -_-");
+                }else{
+                    this.#pierwsze_auto = value;
+                }
+            }
+
+            get ile_lat(){
+                return this.#ilosc_lat;
+            }
+            set ile_lat(value){
+                if(value<0){
+                    alert("Nie da się tak ;c");
+                }else{
+                    this.#ilosc_lat = value;
+                }
+            }
+
+            ObliczCene(){
+                if(this.pierw_auto != true){
+                    return (this.cen * this.kur) + this.alarm + this.radio + this.klima + (500 * this.ile_lat);
+                }else{
+                    return (this.cen * this.kur) + this.alarm + this.radio + this.klima + (500 * this.ile_lat) + 1000;
+                }
+            }
+        }
+        const oblicz=()=>{
+            let wartosc = 0;
+            switch(wybor){
+                case 1:
+                    let auto = new NoweAuto();
+                    auto.mod = model.value;
+                    auto.cen = parseFloat(cena_auta.value);
+                    auto.kur = parseFloat(kurs.value);
+                    wartosc = auto.ObliczCene();
+                    wynik.innerHTML = (auto.mod + " - " + cena2 + ":");
+                    wynik_liczba.innerHTML = (wartosc.toFixed(2)+" PLN");
+                    break;
+                case 2:
+                    let auto_z_dod = new AutoZDodatkami();
+                    auto_z_dod.mod = model.value;
+                    auto_z_dod.cen = parseFloat(cena_auta.value);
+                    auto_z_dod.kur = parseFloat(kurs.value);
+                    auto_z_dod.alarm = parseFloat(alarm.value);
+                    auto_z_dod.klima = parseFloat(klimat.value);
+                    auto_z_dod.radio = parseFloat(radio.value);
+                    wartosc = auto_z_dod.ObliczCene();
+                    wynik.innerHTML = (auto_z_dod.mod + " - " + cena2 + ":");
+                    wynik_liczba.innerHTML = (wartosc.toFixed(2)+" PLN");
+                    break;
+                case 3:
+                    let auto_z_dod_u = new Ubezpieczenie();
+                    auto_z_dod_u.mod = model.value;
+                    auto_z_dod_u.cen = parseFloat(cena_auta.value);
+                    auto_z_dod_u.kur = parseFloat(kurs.value);
+                    auto_z_dod_u.alarm = parseFloat(alarm.value);
+                    auto_z_dod_u.klima = parseFloat(klimat.value);
+                    auto_z_dod_u.radio = parseFloat(radio.value);
+                    auto_z_dod_u.pierw_auto = ubezp;
+                    auto_z_dod_u.ile_lat = parseFloat(lata_u.value);
+                    wartosc = auto_z_dod_u.ObliczCene();
+                    wynik.innerHTML = (auto_z_dod_u.mod + " - " + cena2 + ":");
+                    wynik_liczba.innerHTML = (wartosc.toFixed(2)+" PLN");
+                    break;
+                default:
+                    alert("Ale zaznacz co chcesz obliczyć 0_0");
+            }
+        }
+    </script>
+</body>
+</html>

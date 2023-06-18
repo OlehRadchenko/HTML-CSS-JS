@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zadanie 26</title>
+</head>
+<body>
+    Tekst: <textarea id="tekst" cols="30" rows="10" onkeyup="antybluzgacz()"></textarea><br><br>
+    Cenzura totalna: <textarea id="tekst2" cols="30" rows="10" onkeyup="antybluzgacz2()"></textarea><br><br>
+    <script>
+       const antybluzgacz=()=>{
+        const text = tekst.value;
+        /*const RE = /\S/gi;*/
+        /*let kopia = text.replace(RE, "ą");*/
+        const zakazaneSlowa = ["kurka","psia kość", "zakazane słowo"];
+        const wyrReg = new RegExp(zakazaneSlowa.join("|"), "gim");
+        kopia = text.replace(wyrReg, "cenzura");
+        tekst.value = kopia;
+       }
+       const antybluzgacz2=()=>{
+        const text = tekst2.value;
+        const RE = /\S/gi;
+        let kopia = text.replace(RE, "ą");
+        tekst2.value = kopia;
+       }
+    </script>
+</body>
+</html>
